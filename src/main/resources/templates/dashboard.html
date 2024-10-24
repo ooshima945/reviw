@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ダッシュボード</title>
+</head>
+<body>
+    <h1>一般ユーザー一覧</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ログインID</th>
+                <th>名前</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${generalUsers}">
+                <td th:text="${user.generalId}"></td>
+                <td th:text="${user.generalLoginId}"></td>
+  
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+

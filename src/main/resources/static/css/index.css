@@ -1,0 +1,27 @@
+@charset "UTF-8";
+header {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background-color: darkgrey;
+  align-items: center;
+}
+
+.title {
+  margin-right: auto;
+}
+
+.menu-item {
+  list-style: none;
+  display: inline-block;
+  padding: 20px;
+}
+
+/* 画像サイズを制御するスタイル */
+.product-image {
+  max-width: 800px; /* 画像の最大幅を400pxに設定 */
+  height: auto; /* 高さを自動で調整 */
+  display: block; /* ブロック要素として表示 */
+  margin: 20px auto; /* 上下に20pxのマージンを設定し、中央に配置 */
+  object-fit: contain;
+}

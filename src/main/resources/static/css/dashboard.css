@@ -1,0 +1,149 @@
+/* 全体のスタイル設定 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+/* ヘッダー部分 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 3px solid #ccc;
+}
+
+.title {
+    font-size: 2em;
+    margin: 0;
+}
+
+.user-info {
+    font-size: 1.2em;
+}
+
+.logout-button button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.logout-button button:hover {
+    background-color: #d32f2f;
+}
+
+/* ボディ全体の大きさを調整 */
+.body-container {
+    width: 100%;
+    max-width: 1200px;  /* 最大幅を設定 */
+    margin-top: 20px;
+    padding: 30px;
+    background-color: white;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    height: 80vh;  /* 高さを調整 */
+    overflow: auto;  /* オーバーフローがあるときスクロール */
+}
+
+/* メニュー部分は左半分に表示 */
+.menu {
+    width: 45%;  /* 左半分に表示 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu button {
+    width: 250px;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu button:hover {
+    background-color: #45a049;
+}
+
+/* 隠しコンテンツ */
+.hidden {
+    display: none;
+}
+
+/* 追加画面を右半分に表示 */
+.bordered-box {
+    width: 45%;  /* 右半分の幅に調整 */
+    height: 100%;  /* 高さはbody-container内で調整 */
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;  /* 内容が多くなったときスクロール可能に */
+    box-sizing: border-box;  /* パディングやボーダーを含めてサイズ調整 */
+}
+
+/* チェックボックスや入力部分 */
+.checkbox-group, .input-group {
+    margin: 20px 0;
+}
+
+/* ボタンを表示させるために位置を調整 */
+.button-group, .button-group-bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;  /* ボタンが表示されるように余白を追加 */
+}
+
+/* 大きなボタンのスタイル */
+.large-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.large-button:hover {
+    background-color: #0056b3;
+}
+
+/* 利用状況テーブル */
+.usage-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.usage-table th, .usage-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.usage-table th {
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録</title>
+    <link rel="stylesheet" th:href="@{/css/signupform.css}">
+</head>
+<body>
+    <div class="container">
+        <h2>新規登録</h2>
+
+        <!-- タイムリーフのフォームバインディング -->
+        <form th:action="@{/adminuser/create}" th:object="${adminSignupForm}" method="POST">
+            
+            <div class="form-group-box">
+                <label class="form-title">会計ソフト</label>
+
+                <!-- メールアドレス入力 -->
+                <div class="form-group">
+                    <label for="adminEmail">メールアドレス</label>
+                    <input type="email" id="adminEmail" th:field="*{adminEmail}" required>
+                    <!-- バリデーションメッセージ表示 -->
+   
+                </div>
+
+                <!-- パスワード入力 -->
+                <div class="form-group">
+                    <label for="adminPassword">パスワード</label>
+                    <input type="password" id="adminPassword" th:field="*{adminPassword}" required>
+                    
+                </div>
+
+            </div>
+
+            <!-- 登録ボタン -->
+            <div class="submit-container">
+                <input type="submit" id="submit" value="登録後ログイン画面へ">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
