@@ -47,8 +47,7 @@ public class GeneralUserService {
 
         // ユニークなログインIDを生成し、short型で設定
         short loginId = generateUniqueLoginId();
-        generalUser.setGeneralLoginId(loginId); // loginId は short 型として処理
-
+        generalUser.setGeneralLoginId(loginId); 
         // AdminUser オブジェクトを使用して一般ユーザーに設定
         generalUser.setAdminUser(adminUser);
 
@@ -84,7 +83,7 @@ public class GeneralUserService {
 
     public void showGeneralUsersByAdminId(Integer adminId) {
         // admin_id に一致する general_users のリストを取得
-        List<GeneralUser> generalUsers = generalUserRepository.findByAdminUser_AdminId(adminId);
+        List<GeneralUser> generalUsers = generalUserRepository. findByAdminUser_AdminId(adminId);
 
         // 取得したリストをコンソールに表示
         System.out.println("Admin ID: " + adminId + " に関連する General Users:");
@@ -94,6 +93,10 @@ public class GeneralUserService {
             System.out.println("General User Password: " + generalUser.getGeneralPassword());
             System.out.println("--------------------------");
         }
+    }
+     // adminIdに基づいて一般ユーザーを取得
+    public List<GeneralUser> findByAdminId(Integer adminId) {
+        return generalUserRepository.findByAdminUser_AdminId(adminId);
     }
 }
 

@@ -10,23 +10,12 @@ public class AdminUserDetails implements UserDetails {
     private String adminEmail;
     private String adminPassword;
     private Collection<? extends GrantedAuthority> authorities;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
 
-    public AdminUserDetails(Integer adminId, String adminEmail, String adminPassword, 
-                            Collection<? extends GrantedAuthority> authorities, 
-                            boolean accountNonExpired, boolean accountNonLocked, 
-                            boolean credentialsNonExpired, boolean enabled) {
+    public AdminUserDetails(Integer adminId, String adminEmail, String adminPassword, Collection<? extends GrantedAuthority> authorities) {
         this.adminId = adminId;
         this.adminEmail = adminEmail;
         this.adminPassword = adminPassword;
         this.authorities = authorities;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.enabled = enabled;
     }
 
     // 管理者IDを取得
@@ -50,23 +39,22 @@ public class AdminUserDetails implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
+    public boolean isAccountNonLocked() {
+        return true;  // アカウントがロックされていない状態を示す
     }
 
     @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
+    public boolean isAccountNonExpired() {
+        return true;  // アカウントの有効期限が切れていないことを示す
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
+        return true;  // 認証情報が期限切れではないことを示す
     }
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;  // アカウントが有効であることを示す
     }
 }
-

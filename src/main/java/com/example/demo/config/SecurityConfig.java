@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,24 +31,44 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/test", "/", "/login", "/users/login", "/adminsignup", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/test","/", "/login","/users/login", "/adminsignup","/adminuser/create", "/css/**","/js/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
                 .loginPage("/login")
                 .loginProcessingUrl("/users/login") // カスタムログイン処理のURL
-                .usernameParameter("username") // ユーザー名を受け取るパラメータ名を指定
-                .passwordParameter("password")  // パスワードを受け取るパラメータ名を指定
-                .successHandler(customAuthenticationProvider.customSuccessHandler()) // 認証成功時のハンドラー
+                .usernameParameter("username") // 1つのフィールドにまとめる
+                .passwordParameter("password") 
+                .successHandler(customAuthenticationProvider.customSuccessHandler())
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .permitAll()
             )
-            .authenticationProvider(customAuthenticationProvider); // カスタム認証プロバイダーを使用
+            .authenticationProvider(adminAuthenticationProvider())  // 通常の DaoAuthenticationProvider を使用
+            .authenticationProvider(generalAuthenticationProvider()) // 一般ユーザー用プロバイダ
+            .authenticationProvider(customAuthenticationProvider);  // カスタムプロバイダはログイン時のみ使用
 
         return http.build();
+    }
+
+    // 管理者用 DaoAuthenticationProvider
+    @Bean
+    DaoAuthenticationProvider adminAuthenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(adminUserDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
+    }
+
+    // 一般ユーザー用のDaoAuthenticationProvider
+    @Bean
+    DaoAuthenticationProvider generalAuthenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(generalUserDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
     }
 
     @Bean
@@ -55,5 +76,3 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 }
-
-

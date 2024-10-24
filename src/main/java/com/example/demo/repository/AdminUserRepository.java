@@ -9,5 +9,6 @@ import com.example.demo.entity.AdminUser;
 public interface AdminUserRepository extends JpaRepository<AdminUser,Integer> {
 
     Optional<AdminUser> findByAdminEmail(String adminEmail);
+    
     List<AdminUser> findAll();
 }

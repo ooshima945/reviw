@@ -16,7 +16,7 @@ public class GeneralUserDetailsService implements UserDetailsService {
 
     private final GeneralUserRepository generalUserRepository;
 
-    // コンストラクタでリポジトリを注入
+   
     public GeneralUserDetailsService(GeneralUserRepository generalUserRepository) {
         this.generalUserRepository = generalUserRepository;
     }
@@ -37,9 +37,9 @@ public class GeneralUserDetailsService implements UserDetailsService {
 
         // ユーザーの情報をもとにUserDetailsを返す
         return new User(
-            String.valueOf(generalUser.getGeneralLoginId()), // loginIdはlong型だが、UserDetailsはString型が期待されるためStringに変換
+            String.valueOf(generalUser.getGeneralLoginId()), // 
             generalUser.getGeneralPassword(),
-            Collections.emptyList() // ここに必要に応じて権限を追加
+            Collections.emptyList() // 
         );
     }
 }

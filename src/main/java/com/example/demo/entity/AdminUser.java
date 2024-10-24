@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 @Data
 @Entity
-@Table(name = "admin_user") // テーブル名はDBのテーブル名に合わせます
+@Table(name = "admin_user") 
 public class AdminUser {
 
     @Id

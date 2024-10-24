@@ -5,7 +5,8 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-
+import lombok.Data;
+@Data
 public class JournalEntryForm {
 
     // 日付 (date)
@@ -27,45 +28,6 @@ public class JournalEntryForm {
     // 摘要 (description)
     private String description;
 
-    // Getter & Setter methods
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getDebitAccount() {
-        return debitAccount;
-    }
-
-    public void setDebitAccount(String debitAccount) {
-        this.debitAccount = debitAccount;
-    }
-
-    public String getCreditAccount() {
-        return creditAccount;
-    }
-
-    public void setCreditAccount(String creditAccount) {
-        this.creditAccount = creditAccount;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  
 }

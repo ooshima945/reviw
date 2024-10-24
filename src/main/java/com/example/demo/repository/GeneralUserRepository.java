@@ -14,9 +14,8 @@ public interface GeneralUserRepository extends JpaRepository<GeneralUser, Intege
 
     // generalId に基づいてユーザーを検索
     Optional<GeneralUser> findByGeneralId(Integer generalId);
-
-    // adminId に基づいて一般ユーザーを検索（AdminUser の外部キーを使う）
     List<GeneralUser> findByAdminUser_AdminId(Integer adminId);
-
 }
+
+
 

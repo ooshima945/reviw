@@ -20,15 +20,13 @@ public class GeneralUser {
     @Column(name = "general_id")
     private Integer generalId;
 
-    @Column(name = "login_id")
-    private short generalLoginId;
+    @Column(name = "login_id", nullable = false, unique = true, length = 255)
+    private Short generalLoginId;  // 変更: String型に変更
 
-    @Column(name = "password")
-    private String generalPassword;
-
-
+    @Column(name = "password", nullable = false, length = 255)
+    private String generalPassword;  // 変更: nullable=falseとlengthを追加
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")
+    @JoinColumn(name = "admin_id", nullable = false)
     private AdminUser adminUser;
 }

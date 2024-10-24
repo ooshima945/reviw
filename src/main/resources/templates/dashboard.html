@@ -4,25 +4,36 @@
     <title>ダッシュボード</title>
 </head>
 <body>
-    <h1>一般ユーザー一覧</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>ログインID</th>
-                <th>名前</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user : ${generalUsers}">
-                <td th:text="${user.generalId}"></td>
-                <td th:text="${user.generalLoginId}"></td>
-  
-            </tr>
-        </tbody>
-    </table>
+   
+  <h2>ユーザーの削除</h2>
+<form th:action="@{/users/delete}" method="post">
+    <div class="checkbox-group">
+        <div th:if="${generalUsers != null and !generalUsers.isEmpty()}">
+            <div th:each="user : ${generalUsers}">
+                <label>
+                    <input type="radio" name="userId" th:value="${user.generalId}"> ユーザーID: <span th:text="${user.generalId}"></span>
+                </label><br>
+            </div>
+        </div>
+        <div th:if="${generalUsers == null or generalUsers.isEmpty()}">
+            <p>表示するユーザーがいません。</p>
+        </div>
+    </div>
+
+    <!-- ページネーションのナビゲーション -->
+    <div class="pagination">
+        <button th:if="${currentPage != null && currentPage > 0}" th:onclick="'location.href=\'/dashboard?page=' + (${currentPage} - 1)" class="large-button">前へ</button>
+        <span>Page <span th:text="${currentPage != null ? currentPage + 1 : 1}"></span> / <span th:text="${totalPages != null ? totalPages : 1}"></span></span>
+        <button th:if="${currentPage != null && currentPage < totalPages - 1}" th:onclick="'location.href=\'/dashboard?page=' + (${currentPage} + 1)" class="large-button">次へ</button>
+    </div>
+
+    <div class="button-group">
+        <button class="large-button" type="button" onclick="hideAll()">戻る</button>
+        <button class="large-button" type="submit">削除</button>
+    </div>
+</form>
+
 </body>
 </html>
-
 
 
