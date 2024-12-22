@@ -25,12 +25,11 @@ public class AdminSignupController {
         model.addAttribute("adminSignupForm", new AdminSignupForm());
         return "adminsignup"; // adminsignup.htmlを表示
     }
-
     @PostMapping("/adminuser/create")
     public String adminSignupSubmit(
-            @ModelAttribute("adminSignupForm") @Valid AdminSignupForm adminSignupForm, 
-            BindingResult bindingResult, 
-            Model model) {
+        @ModelAttribute("adminSignupForm") @Valid AdminSignupForm adminSignupForm,
+        BindingResult bindingResult,
+        Model model) {
 
         // バリデーションエラーがあればフォームを再表示
         if (bindingResult.hasErrors()) {
@@ -38,6 +37,7 @@ public class AdminSignupController {
         }
 
         try {
+          
             // 管理者を登録
             adminUserService.registerAdmin(adminSignupForm);
         } catch (IllegalArgumentException e) {
@@ -45,6 +45,12 @@ public class AdminSignupController {
             model.addAttribute("signupError", e.getMessage());
             return "adminsignup"; // エラー時は再度フォームを表示
         }
+            catch (org.springframework.dao.DataIntegrityViolationException e) {
+            // 同じメールアドレスが存在する場合のエラーメッセージを追加
+           model.addAttribute("signupError", "指定されたアカウントは既に存在します。");
+            return "adminsignup"; // エラー時は再度フォームを表示
+        }
+
 
         // 登録が成功したらログインページにリダイレクト
         return "redirect:/login";

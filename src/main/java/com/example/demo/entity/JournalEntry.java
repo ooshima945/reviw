@@ -2,7 +2,9 @@ package com.example.demo.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import lombok.Data;
@@ -23,7 +26,7 @@ public class JournalEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "entry_id")
-    private Long entryId;
+    private Integer entryId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "general_id", nullable = false)
@@ -46,5 +49,13 @@ public class JournalEntry {
     private java.sql.Timestamp updatedAt;
 
     @Column(name = "deleted_at")
-    private java.sql.Timestamp deletedAt;
+    private Integer deletedAt;
+
+    
+    @OneToMany(mappedBy = "journalEntry", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<JournalDetail> journalDetails;
+
+    
+   
+
 }

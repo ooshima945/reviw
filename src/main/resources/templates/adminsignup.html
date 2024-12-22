@@ -37,6 +37,9 @@
             <div class="submit-container">
                 <input type="submit" id="submit" value="登録後ログイン画面へ">
             </div>
+              <div th:if="${signupError}" class="error-message">
+        <p th:text="${signupError}"></p>
+    </div>
         </form>
     </div>
 </body>

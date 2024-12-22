@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.balance-sheet {
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #666;
+}
+
+.table {
+    display: flex;
+    justify-content: space-between;
+}
+
+.assets, .liabilities-equity {
+    width: 48%;
+}
+
+.centered-title {
+    text-align: center; /* h2 タイトルを中央揃え */
+    font-size: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.section {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.boxed-title {
+    font-size: 16px;
+    color: #555;
+    padding: 10px;
+    border: 2px solid #333; /* 各 h3 タイトルに枠線を追加 */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.boxed-list {
+    border: 1px solid #333; /* 各 ul に枠線を追加 */
+    padding: 10px;
+    border-radius: 5px;
+    list-style-type: none;
+    margin: 0;
+}
+
+li {
+    font-size: 14px;
+    padding: 5px 0;
+    color: #333;
+    border-bottom: 1px dashed #ddd;
+}
+
+.subtotal {
+    font-weight: bold;
+    padding-top: 5px;
+    border-top: 2px solid #333;
+}
+
+.total {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}

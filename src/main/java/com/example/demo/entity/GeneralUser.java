@@ -1,7 +1,11 @@
 package com.example.demo.entity;
 
+
+import java.sql.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,12 +25,20 @@ public class GeneralUser {
     private Integer generalId;
 
     @Column(name = "login_id", nullable = false, unique = true, length = 255)
-    private Short generalLoginId;  // 変更: String型に変更
+    private Short generalLoginId;  
 
     @Column(name = "password", nullable = false, length = 255)
-    private String generalPassword;  // 変更: nullable=falseとlengthを追加
+    private String generalPassword;  
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id", nullable = false)
     private AdminUser adminUser;
-}
+    
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    @Column(name = "deleted_at")
+    private Integer deletedAt;
+
+	}
+

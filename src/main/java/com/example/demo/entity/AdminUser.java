@@ -35,5 +35,6 @@ public class AdminUser {
     @Column(name = "deleted_at")
     private Timestamp deletedAt;
 
+
    
 }

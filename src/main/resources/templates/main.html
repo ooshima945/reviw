@@ -15,12 +15,13 @@
     
     <main>
         <!-- ボタンでフォーム送信 -->
-        <form th:action="@{/journalentry/create}" method="get">
+        <form th:action="@{/journalentry/form}" method="get">
             <button type="submit" class="button">仕訳処理</button>
         </form>
 
         <form th:action="@{/journals/show}" method="get"> <!-- journals/showへの操作を送信 -->
             <button type="submit" class="button">会計帳票表示</button>
+             <button type="button" class="button"onclick="location.href='/login'">戻る</button>
         </form>
     </main>
 </body>

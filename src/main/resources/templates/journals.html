@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仕訳ソフト</title>
+    <link rel="stylesheet" th:href="@{/css/journals.css}">
+</head>
+<body>
+
+<header>
+    <div class="title">会計ソフト</div>
+</header>
+
+<section>
+    <div class="section-title">
+        <h3>仕訳処理</h3>
+        <hr>
+    </div>
+</section>
+
+<section class="scroll-table">
+    <table>
+        <thead>
+            <tr>
+				<th>チェック</th>
+                <th>日付</th>
+                <th>借方勘定科目</th>
+                <th>金額</th>
+                <th>貸方勘定科目</th>
+                <th>金額</th>
+                <th>摘要</th>
+            </tr>
+        </thead>
+ <tbody>
+            <tr th:each="entry : ${journalEntries}">
+                <td>
+                    <input type="radio" name="selectedEntryId" th:value="${entry[0]}" th:id="'entry-' + ${entry[0]}">
+      </td>
+                <td th:text="${entry[1]}">日付</td>
+                <td th:text="${entry[7]}">借方勘定科目</td>
+                <td th:text="${#numbers.formatInteger(entry[4], 3, 'COMMA')}">借方金額</td>
+                <td th:text="${entry[8]}">貸方勘定科目</td>
+                <td th:text="${#numbers.formatInteger(entry[4], 3, 'COMMA')}">借方金額</td>
+                <td th:text="${entry[2]}">摘要</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+   <!-- 入力フォーム -->
+<form th:action="@{/journalentry/create}" method="post" th:object="${journalEntryForm}" id="createJournalForm">
+    <section class="input-form">
+        <div class="form-group">
+            <label for="date">日付</label>
+            <input type="date" id="date" th:field="*{date}" required>
+        </div>
+        <div class="form-group">
+            <label for="debit-account">借方勘定科目</label>
+            <input type="text" id="debit-account" th:field="*{debitAccount}" required>
+        </div>
+        <div class="form-group">
+            <label for="credit-account">貸方勘定科目</label>
+            <input type="text" id="credit-account" th:field="*{creditAccount}" required>
+        </div>
+        <div class="form-group">
+            <label for="totalAmount">合計金額</label>
+            <input type="number" id="total-amount" th:field="*{totalAmount}" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">摘要</label>
+            <input type="text" id="description" th:field="*{description}">
+        </div>
+    </section>
+     </section>
+    
+
+    <section class="buttons">
+    
+      <button type="button" onclick="updateEntry()">削除</button>
+      <button type="button" onclick="location.href='/main'">中止</button>
+       <button type="submit">登録</button>
+    </section>
+    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="error-message"></div>
+</form>
+
+<script th:src="@{/js/journals.js}"></script>
+</body>
+</html>

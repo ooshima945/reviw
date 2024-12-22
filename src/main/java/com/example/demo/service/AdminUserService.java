@@ -36,4 +36,5 @@ public class AdminUserService {
         adminUserRepository.save(newAdmin);
     }
    
+    
 }

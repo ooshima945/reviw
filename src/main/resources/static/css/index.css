@@ -1,27 +1,53 @@
 @charset "UTF-8";
+
 header {
-  display: flex;
-  width: 100%;
-  height: 100px;
-  background-color: darkgrey;
-  align-items: center;
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background-color: darkgrey;
+    align-items: center;
 }
 
 .title {
-  margin-right: auto;
+    margin-right: auto;
 }
 
 .menu-item {
-  list-style: none;
-  display: inline-block;
-  padding: 20px;
+    list-style: none;
+    display: inline-block;
+    padding: 20px;
 }
 
 /* 画像サイズを制御するスタイル */
 .product-image {
-  max-width: 800px; /* 画像の最大幅を400pxに設定 */
-  height: auto; /* 高さを自動で調整 */
-  display: block; /* ブロック要素として表示 */
-  margin: 20px auto; /* 上下に20pxのマージンを設定し、中央に配置 */
-  object-fit: contain;
+    max-width: 800px;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    object-fit: contain;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end; /* 右寄せにする */
+    align-items: center; /* 垂直方向中央揃え */
+}
+.menu-group{
+  display: flex;
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+.menu-group button{
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #2c3e50;
+  color:white;
+  border:2px solid #34495e;
+  cursor:pointer;
+  border-radius:4px;
+  transition:background-color 0.3s ease;
+}
+.menu-group button:hover{
+   background-color: #34495e;
 }

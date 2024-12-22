@@ -48,7 +48,7 @@ body {
 /* ボディ全体の大きさを調整 */
 .body-container {
     width: 100%;
-    max-width: 1200px;  /* 最大幅を設定 */
+    max-width: 1200px;
     margin-top: 20px;
     padding: 30px;
     background-color: white;
@@ -56,14 +56,15 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between;
-    height: 80vh;  /* 高さを調整 */
-    overflow: auto;  /* オーバーフローがあるときスクロール */
+    flex-direction: row; /* 横並びにする */
+    align-items: flex-start;
+    height: 80vh;
+    overflow: auto;
 }
 
 /* メニュー部分は左半分に表示 */
 .menu {
-    width: 45%;  /* 左半分に表示 */
+    width: 45%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -93,14 +94,14 @@ body {
 
 /* 追加画面を右半分に表示 */
 .bordered-box {
-    width: 45%;  /* 右半分の幅に調整 */
-    height: 100%;  /* 高さはbody-container内で調整 */
+    width: 45%;
+    height: 100%;
     padding: 20px;
     border: 2px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;  /* 内容が多くなったときスクロール可能に */
-    box-sizing: border-box;  /* パディングやボーダーを含めてサイズ調整 */
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 /* チェックボックスや入力部分 */
@@ -109,11 +110,12 @@ body {
 }
 
 /* ボタンを表示させるために位置を調整 */
-.button-group, .button-group-bottom {
+.button-group,
+.button-group-bottom {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;  /* ボタンが表示されるように余白を追加 */
+    width: 50%;
+    margin-top: 20px;
 }
 
 /* 大きなボタンのスタイル */
@@ -133,12 +135,14 @@ body {
 
 /* 利用状況テーブル */
 .usage-table {
-    width: 100%;
+    width: 100%; /* テーブルの幅を100%にする */
     border-collapse: collapse;
     margin-bottom: 20px;
+    table-layout: fixed; /* テーブルレイアウトを固定にする */
 }
 
-.usage-table th, .usage-table td {
+.usage-table th,
+.usage-table td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
@@ -146,4 +150,15 @@ body {
 
 .usage-table th {
     background-color: #f0f0f0;
+}
+
+/* ページネーション */
+.pagination {
+    display: flex; /* flexboxを使用 */
+    justify-content: space-between; /* 両端に寄せる */
+    align-items: center; /* 垂直方向に中央揃え */
+    margin-top: 10px; /* テーブルとの間隔を調整 */
+}
+.pagination a{
+    margin: 0 5px;
 }

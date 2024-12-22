@@ -2,7 +2,6 @@ package com.example.demo.config;
 
 import java.util.Collections;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,15 +15,13 @@ public class GeneralUserDetailsService implements UserDetailsService {
 
     private final GeneralUserRepository generalUserRepository;
 
-   
     public GeneralUserDetailsService(GeneralUserRepository generalUserRepository) {
         this.generalUserRepository = generalUserRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
-   
-        short loginIdShort;
+        Short loginIdShort;
         try {
             loginIdShort = Short.parseShort(loginId);
         } catch (NumberFormatException e) {
@@ -36,11 +33,13 @@ public class GeneralUserDetailsService implements UserDetailsService {
             .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません: " + loginId));
 
         // ユーザーの情報をもとにUserDetailsを返す
-        return new User(
-            String.valueOf(generalUser.getGeneralLoginId()), // 
-            generalUser.getGeneralPassword(),
-            Collections.emptyList() // 
+        return new GeneralUserDetails(
+                generalUser.getGeneralId(),
+                String.valueOf(generalUser.getGeneralLoginId()),
+                generalUser.getGeneralPassword(),
+                Collections.emptyList()
         );
     }
 }
+
 

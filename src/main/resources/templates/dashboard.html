@@ -1,39 +1,112 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ダッシュボード</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 <body>
-   
-  <h2>ユーザーの削除</h2>
-<form th:action="@{/users/delete}" method="post">
-    <div class="checkbox-group">
-        <div th:if="${generalUsers != null and !generalUsers.isEmpty()}">
-            <div th:each="user : ${generalUsers}">
-                <label>
-                    <input type="radio" name="userId" th:value="${user.generalId}"> ユーザーID: <span th:text="${user.generalId}"></span>
-                </label><br>
+    <header class="header">
+        <h1 class="title">会計ソフト</h1>
+        <div class="user-info">
+            <label id="username-label">管理者メール: <span id="username" th:text="${#authentication.name}">メールアドレスここに表示</span></label>
+        </div>
+        <div class="logout-button">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" id="logout">ログアウト</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="body-container">
+        <div class="menu">
+            <button onclick="showUserAdd()">ユーザーの追加</button>
+            <button onclick="showUserDelete()">ユーザーの削除</button>
+            <button onclick="showUsageStatus()">利用状況</button>
+            
+        </div>
+        
+        <!-- ユーザーの追加画面 -->
+        <div class="hidden bordered-box" id="user-add">
+            <h2>ユーザーの追加</h2>
+            <form th:action="@{/users/create}" method="post" th:object="${generalSignupForm}">
+                <div class="input-group">
+                    <label for="generalPassword">パスワード:</label>
+                    <input type="password" id="generalPassword" th:field="*{generalPassword}" name="generalPassword" required><br>
+                    <div class="button-group-bottom">
+                <button class="large-button" type="button" onclick="location.href='/dashboard'">戻る</button>
+                <button class="large-button"type="submit">登録</button>
             </div>
+                </div>
+                
+            </form>
         </div>
-        <div th:if="${generalUsers == null or generalUsers.isEmpty()}">
-            <p>表示するユーザーがいません。</p>
-        </div>
-    </div>
+        
+        <!-- ユーザーの削除画面 -->
+        <div class="user-delete hidden bordered-box" id="user-delete">
+            <h2>ユーザーの削除</h2>
+            <form th:action="@{/users/delete}" method="post">
+                <div class="radio-group">
+                    <div th:if="${generalUsers != null and generalUsers.content.size() > 0}">
+                        <div th:each="user : ${generalUsers.content}">
+                            <label>
+                                <input type="radio" name="userId" th:value="${user.generalLoginId}" >
+                               ログインID: <span th:text="${user.generalLoginId}"></span>
+                            </label><br>
+                        </div>
+                    </div>
+                    <div th:if="${generalUsers == null or generalUsers.content.isEmpty()}">
+                        <p>表示するユーザーがいません。</p>
+                    </div>
+                </div>
 
-    <!-- ページネーションのナビゲーション -->
+                <div class="button-group">
+                    <button class="large-button" type="button" onclick="hideAll()">戻る</button>
+                    <button class="large-button" type="submit">削除</button>
+                </div>
+                
+             
+    <!-- 前へボタン -->
+    <a th:if="${currentPage > 0}" th:href="@{/dashboard(page=${currentPage} - 1)}" class="button">前へ</a>
+    
+
+    
+    <!-- 次へボタン -->
+    <a th:if="${currentPage < totalPages - 1}" th:href="@{/dashboard(page=${currentPage} + 1)}" class="button">次へ</a>
+</div>
+            </form>
+        </div>
+        
+  <!-- 利用状況画面 -->
+<div class="usage-status hidden bordered-box" id="usage-status" >
+    <h2>利用状況</h2>
+    <table class="usage-table">
+        <thead>
+            <tr>
+                <th>ログインID</th>
+                <th>更新日時</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${generalUsers.content}">
+                <td th:text="${user.generalLoginId}">ログインID</td>
+                <td th:text="${user.updatedAt}">更新日時</td>
+            </tr>
+        </tbody>
+    </table>
+
+ 
     <div class="pagination">
-        <button th:if="${currentPage != null && currentPage > 0}" th:onclick="'location.href=\'/dashboard?page=' + (${currentPage} - 1)" class="large-button">前へ</button>
-        <span>Page <span th:text="${currentPage != null ? currentPage + 1 : 1}"></span> / <span th:text="${totalPages != null ? totalPages : 1}"></span></span>
-        <button th:if="${currentPage != null && currentPage < totalPages - 1}" th:onclick="'location.href=\'/dashboard?page=' + (${currentPage} + 1)" class="large-button">次へ</button>
+        <a th:if="${currentPage > 0}" th:href="@{/dashboard(page=${currentPage - 1})}" class="button">前へ</a>
+        <span>Page <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span></span>
+        <a th:if="${currentPage < totalPages - 1}" th:href="@{/dashboard(page=${currentPage + 1})}" class="button">次へ</a>
     </div>
 
-    <div class="button-group">
-        <button class="large-button" type="button" onclick="hideAll()">戻る</button>
-        <button class="large-button" type="submit">削除</button>
-    </div>
-</form>
+    <button onclick="location.href='/dashboard'">ダッシュボードに戻る</button>
+</div>
 
+    <script th:src="@{/js/dashboard.js}"></script>
 </body>
 </html>
-
 

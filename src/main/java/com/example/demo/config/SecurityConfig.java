@@ -28,30 +28,31 @@ public class SecurityConfig {
     private PasswordEncoder passwordEncoder;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/test","/", "/login","/users/login", "/adminsignup","/adminuser/create", "/css/**","/js/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(login -> login
-                .loginPage("/login")
-                .loginProcessingUrl("/users/login") // カスタムログイン処理のURL
-                .usernameParameter("username") // 1つのフィールドにまとめる
-                .passwordParameter("password") 
-                .successHandler(customAuthenticationProvider.customSuccessHandler())
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .permitAll()
-            )
-            .authenticationProvider(adminAuthenticationProvider())  // 通常の DaoAuthenticationProvider を使用
-            .authenticationProvider(generalAuthenticationProvider()) // 一般ユーザー用プロバイダ
-            .authenticationProvider(customAuthenticationProvider);  // カスタムプロバイダはログイン時のみ使用
-
-        return http.build();
-    }
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	    .csrf().disable() 
+	        .authorizeHttpRequests(authorize -> authorize
+	            .requestMatchers("/test","/", "/login","/users/login", "/adminsignup","/adminuser/create", "/css/**","/js/**").permitAll()
+	            .anyRequest().authenticated()
+	        )
+	        .formLogin(login -> login
+	            .loginPage("/login")
+	            .loginProcessingUrl("/users/login") 
+	            .usernameParameter("username")
+	            .passwordParameter("password") 
+	            .successHandler(customAuthenticationProvider.customSuccessHandler())
+	            .permitAll()
+	        )
+	        .logout(logout -> logout
+	            .logoutUrl("/logout")
+	            .permitAll()
+	        )
+	        .authenticationProvider(adminAuthenticationProvider())  // 通常の DaoAuthenticationProvider を使用
+	        .authenticationProvider(generalAuthenticationProvider()) // 一般ユーザー用プロバイダ
+	        .authenticationProvider(customAuthenticationProvider);  // カスタムプロバイダはログイン時のみ使用
+	
+	    return http.build();
+	}
 
     // 管理者用 DaoAuthenticationProvider
     @Bean
